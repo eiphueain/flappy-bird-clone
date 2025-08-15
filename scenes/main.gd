@@ -1,6 +1,11 @@
 extends Node
 
 @export var pipe_scene : PackedScene
+@onready var sfx_fall: AudioStreamPlayer = $sfx_fall
+@onready var sfx_score: AudioStreamPlayer = $sfx_score
+@onready var sfx_start: AudioStreamPlayer = $sfx_start
+
+
 
 var game_running : bool
 var game_over : bool
@@ -12,6 +17,7 @@ var ground_height : int
 var pipes : Array
 const PIPE_DELAY : int = 100
 const PIPE_RANGE : int = 200
+var sfx_fall_play : int = 0
 
 func _ready():
 	screen_size = get_window().size
@@ -48,6 +54,7 @@ func start_game():
 	$Bird.flap()
 	# start pipe timer
 	$PipeTimer.start()
+	$sfx_start.play()
 	
 func _process(delta):
 	if game_running:
@@ -76,6 +83,7 @@ func generate_pipes():
 func scored():
 	score += 1
 	$ScoreLabel.text = "SCORE: " + str(score)
+	$sfx_score.play()
 	
 func check_top():
 	if $Bird.position.y < 0:
@@ -88,6 +96,9 @@ func stop_game():
 	game_running = false
 	game_over = true
 	$GameOver.show()
+	if sfx_fall_play <1:
+		$sfx_fall.play()
+		sfx_fall_play += 1
 
 func bird_hit():
 	$Bird.falling = true
