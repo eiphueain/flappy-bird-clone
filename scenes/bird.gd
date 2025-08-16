@@ -1,4 +1,5 @@
 extends CharacterBody2D
+@onready var sfx_flap: AudioStreamPlayer = $sfx_flap
 
 # how quickly the bird drops 
 const GRAVITY : int = 1000
@@ -44,3 +45,4 @@ func _physics_process(delta):
 # allows bird to flap and fly upwards
 func flap():
 	velocity.y = FLAP_SPEED
+	$sfx_flap.play()

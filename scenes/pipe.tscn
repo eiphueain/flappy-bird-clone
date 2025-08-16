@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://mev2n8qf147v"]
+[gd_scene load_steps=9 format=3 uid="uid://mev2n8qf147v"]
 
 [ext_resource type="Script" uid="uid://ctgki7lfka586" path="res://scenes/pipe.gd" id="1_arpqm"]
 [ext_resource type="Texture2D" uid="uid://dwv2ihu12nc3t" path="res://assets/pipe.png" id="2_8p0di"]
+[ext_resource type="AudioStream" uid="uid://bwnhxlevf257y" path="res://assets/flappy-bird-hit-sound-101soundboards.mp3" id="3_8p0di"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejsh2"]
 size = Vector2(78, 36)
@@ -51,6 +52,10 @@ shape = SubResource("RectangleShape2D_ss4sx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
 position = Vector2(52, 1)
 shape = SubResource("RectangleShape2D_arpqm")
+
+[node name="sfx_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8p0di")
+volume_db = -16.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]
